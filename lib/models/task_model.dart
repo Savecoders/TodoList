@@ -3,7 +3,7 @@ class Task {
   String title;
   DateTime date;
   String priority;
-  int status; // 0 - Incomplete,  1 - Complete
+  int status;
 
   Task({this.title, this.date, this.priority, this.status});
   Task.withId({this.id, this.title, this.date, this.priority, this.status});
@@ -14,7 +14,7 @@ class Task {
       map['id'] = id;
     }
 
-    map['id'] = id;
+    //map['id'] = id;
     map['title'] = title;
     map['date'] = date.toIso8601String();
     map['priority'] = priority;

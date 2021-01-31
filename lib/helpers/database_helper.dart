@@ -32,8 +32,7 @@ class DatabaseHelper {
   Future<Database> _initDb() async {
     Directory dir = await getApplicationDocumentsDirectory();
     String path = dir.path + 'todo_list.db';
-    final todoListDb =
-        await openDatabase(path, version: 1, onCreate: _createDb);
+    final todoListDb = await openDatabase(path, version: 1, onCreate: _createDb);
 
     return todoListDb;
   }
