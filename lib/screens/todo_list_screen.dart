@@ -12,7 +12,7 @@ class TodoListScreeen extends StatefulWidget {
 
 class _TodoListScreeenState extends State<TodoListScreeen> {
   Future<List<Task>> _taskList;
-  final DateFormat _dateFormat = DateFormat('MMM dd,yyyy');
+  final DateFormat _dateFormat = DateFormat.yMd('es');
 
   @override
   void initState() {
@@ -40,7 +40,8 @@ class _TodoListScreeenState extends State<TodoListScreeen> {
                       ? TextDecoration.none
                       : TextDecoration.lineThrough),
             ),
-            subtitle: Text('${_dateFormat.format(task.date)} ${task.priority}',
+            subtitle: Text(
+                '${_dateFormat.format(task.date)} | ${task.priority}',
                 style: TextStyle(
                     fontSize: 15,
                     decoration: task.status == 0
@@ -51,7 +52,6 @@ class _TodoListScreeenState extends State<TodoListScreeen> {
                   task.status = value ? 1 : 0;
                   DatabaseHelper.instance.updateTask(task);
                   _updateTaskList();
-                  print(value);
                 },
                 activeColor: Theme.of(context).primaryColor,
                 value: task.status == 1 ? true : false),
@@ -84,6 +84,7 @@ class _TodoListScreeenState extends State<TodoListScreeen> {
         },
         child: Icon(Icons.add),
       ),
+      
       body: FutureBuilder(
           future: _taskList,
           builder: (context, snapshot) {
@@ -93,7 +94,7 @@ class _TodoListScreeenState extends State<TodoListScreeen> {
               );
             }
 
-            final int completedTaskCount = snapshot.data
+                final int completedTaskCount = snapshot.data
                 .where((Task task) => task.status == 1)
                 .toList()
                 .length;
@@ -109,7 +110,7 @@ class _TodoListScreeenState extends State<TodoListScreeen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'My Task',
+                          'Mis Tareas',
                           style: TextStyle(
                               fontSize: 40,
                               color: Colors.black,
@@ -132,7 +133,9 @@ class _TodoListScreeenState extends State<TodoListScreeen> {
                 return _buildTask(snapshot.data[i - 1]);
               },
             );
-          }),
+          }
+      ),
     );
   }
 }
+  

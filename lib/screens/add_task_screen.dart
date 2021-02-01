@@ -23,7 +23,7 @@ class _AddTaskSreenState extends State<AddTaskSreen> {
   TextEditingController _dateController = TextEditingController();
 
   final DateFormat _dateFormat = DateFormat('MMM dd, yyyy');
-  final List<String> _priorities = ['Low', 'Medium', 'High'];
+  final List<String> _priorities = ['Bajo', 'Medio', 'Alto'];
 
   _handleDatePicker() async {
     final DateTime date = await showDatePicker(
@@ -110,7 +110,7 @@ class _AddTaskSreenState extends State<AddTaskSreen> {
                 SizedBox(
                   height: 20,
                 ),
-                Text(widget.task == null ? 'Add Task' : 'Update Task',
+                Text(widget.task == null ? 'Añadir Tarea' : 'Actualizar Tarea',
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 40,
@@ -129,12 +129,12 @@ class _AddTaskSreenState extends State<AddTaskSreen> {
                         child: TextFormField(
                           style: TextStyle(fontSize: 18),
                           decoration: InputDecoration(
-                              labelText: 'Title',
+                              labelText: 'Titulo ',
                               labelStyle: TextStyle(fontSize: 18),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10))),
                           validator: (input) => input.trim().isEmpty
-                              ? "Please enter a task"
+                              ? "Por favor ingrese una tarea"
                               : null,
                           onSaved: (input) => _title = input,
                           initialValue: _title,
@@ -150,12 +150,12 @@ class _AddTaskSreenState extends State<AddTaskSreen> {
                           onTap: _handleDatePicker,
                           style: TextStyle(fontSize: 18),
                           decoration: InputDecoration(
-                              labelText: 'Date',
+                              labelText: 'Fecha',
                               labelStyle: TextStyle(fontSize: 18),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10))),
                           validator: (input) => input.trim().isEmpty
-                              ? "Please enter a task"
+                              ? "Ingrese la fecha"
                               : null,
                         ),
                       ),
@@ -176,12 +176,12 @@ class _AddTaskSreenState extends State<AddTaskSreen> {
                             }).toList(),
                             style: TextStyle(fontSize: 18),
                             decoration: InputDecoration(
-                                labelText: 'Priority',
+                                labelText: 'Prioridad',
                                 labelStyle: TextStyle(fontSize: 18),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10))),
                             validator: (input) => _priority == null
-                                ? "Please Select a priority level"
+                                ? "Por favor Selecciona la Prioridad"
                                 : null,
                             onChanged: (value) {
                               setState(() {
@@ -199,7 +199,7 @@ class _AddTaskSreenState extends State<AddTaskSreen> {
                         child: FlatButton(
                           onPressed: _submit,
                           child: Text(
-                            widget.task == null ? "Add" : 'Update',
+                            widget.task == null ? "añadir" : 'Actualizar',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
@@ -219,14 +219,14 @@ class _AddTaskSreenState extends State<AddTaskSreen> {
                               child: FlatButton(
                                 onPressed: _delete,
                                 child: Text(
-                                  'Delete',
+                                  'Eliminar',
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
-                            )
+                          )
                     ],
                   ),
                 )

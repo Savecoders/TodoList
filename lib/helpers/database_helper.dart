@@ -16,13 +16,7 @@ class DatabaseHelper {
   String colDate = 'date';
   String colPriority = 'priority';
   String colStatus = 'status';
-
-  // task tables
-  // Id | Title | Date | Priority | Status
-  //  0     ''     ''       ''        ''
-  //  2     ''     ''       ''        ''
-  //  3     ''     ''       ''        ''
-
+  
   Future<Database> get db async {
     if (_db == null) {
       _db = await _initDb();
