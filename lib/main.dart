@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: [
       GlobalMaterialLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: [
         const Locale('es'), // Español    // ... otras regiones que la app soporte

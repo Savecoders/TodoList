@@ -1,5 +1,7 @@
 import 'package:ejemplo1/helpers/database_helper.dart';
 import 'package:ejemplo1/models/task_model.dart';
+import 'package:ejemplo1/screens/todo_list_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -63,7 +65,11 @@ class _AddTaskSreenState extends State<AddTaskSreen> {
   _delete() {
     DatabaseHelper.instance.deleteTask(widget.task.id);
     widget.updateTaskList();
-    Navigator.pop(context);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+      builder: (context) =>
+      TodoListScreeen()));                                        
   }
 
   @override
@@ -154,9 +160,8 @@ class _AddTaskSreenState extends State<AddTaskSreen> {
                               labelStyle: TextStyle(fontSize: 18),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10))),
-                          validator: (input) => input.trim().isEmpty
-                              ? "Ingrese la fecha"
-                              : null,
+                          validator: (input) =>
+                              input.trim().isEmpty ? "Ingrese la fecha" : null,
                         ),
                       ),
                       Padding(
@@ -217,7 +222,23 @@ class _AddTaskSreenState extends State<AddTaskSreen> {
                                   color: Theme.of(context).primaryColor,
                                   borderRadius: BorderRadius.circular(30)),
                               child: FlatButton(
-                                onPressed: _delete,
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          CupertinoAlertDialog(
+                                            title: Text('Tarea Pendiente'),
+                                            content: Text(
+                                                'Tu tarea: ${widget.task.title}'),
+                                            actions: <Widget>[
+                                              CupertinoDialogAction(
+                                                isDefaultAction: true,
+                                                child: Text('salir'),
+                                                onPressed: _delete,
+                                              )
+                                            ],
+                                  ));
+                                },
                                 child: Text(
                                   'Eliminar',
                                   style: TextStyle(
@@ -226,7 +247,7 @@ class _AddTaskSreenState extends State<AddTaskSreen> {
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
-                          )
+                            )
                     ],
                   ),
                 )
