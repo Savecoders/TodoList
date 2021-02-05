@@ -27,11 +27,16 @@ class _TodoListScreeenState extends State<TodoListScreeen> {
       _taskList = DatabaseHelper.instance.getTaskList();
     });
   }
-  
+
   @override
   Widget build(BuildContext _) {
     return Scaffold(
-      floatingActionButton: getButtonsFloating(context, AddTaskSreen(updateTaskList: _updateTaskList,),Instruccions()),
+      floatingActionButton: getButtonsFloating(
+          context,
+          AddTaskSreen(
+            updateTaskList: _updateTaskList,
+          ),
+          Instruccions()),
       body: FutureBuilder(
           future: _taskList,
           builder: (context, snapshot) {
@@ -40,7 +45,7 @@ class _TodoListScreeenState extends State<TodoListScreeen> {
                 child: CircularProgressIndicator(),
               );
             }
-                final int completedTaskCount = snapshot.data
+            final int completedTaskCount = snapshot.data
                 .where((Task task) => task.status == 1)
                 .toList()
                 .length;
@@ -72,7 +77,6 @@ class _TodoListScreeenState extends State<TodoListScreeen> {
                               color: Colors.grey,
                               fontWeight: FontWeight.w600),
                         ),
-                        
                       ],
                     ),
                   );
@@ -80,8 +84,7 @@ class _TodoListScreeenState extends State<TodoListScreeen> {
                 return _buildTask(snapshot.data[i - 1]);
               },
             );
-          }
-      ),
+          }),
     );
   }
 
@@ -127,5 +130,4 @@ class _TodoListScreeenState extends State<TodoListScreeen> {
       ),
     );
   }
-  
 }
