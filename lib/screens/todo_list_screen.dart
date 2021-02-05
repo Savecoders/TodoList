@@ -1,3 +1,5 @@
+import 'package:ejemplo1/events/buttonAction.dart';
+import 'package:ejemplo1/screens/instruccions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ejemplo1/helpers/database_helper.dart';
@@ -29,19 +31,7 @@ class _TodoListScreeenState extends State<TodoListScreeen> {
   @override
   Widget build(BuildContext _) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(_).primaryColor,
-        onPressed: () {
-          Navigator.push(
-              context,
-              CupertinoPageRoute(
-                  builder: (_) => AddTaskSreen(
-                        updateTaskList: _updateTaskList,
-                      )));
-        },
-        child: Icon(Icons.add),
-      ),
-      
+      floatingActionButton: getButtonsFloating(context, AddTaskSreen(updateTaskList: _updateTaskList,),Instruccions()),
       body: FutureBuilder(
           future: _taskList,
           builder: (context, snapshot) {
