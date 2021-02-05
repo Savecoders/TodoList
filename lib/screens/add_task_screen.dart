@@ -1,3 +1,4 @@
+import 'package:ejemplo1/events/alertDialog.dart';
 import 'package:ejemplo1/helpers/database_helper.dart';
 import 'package:ejemplo1/models/task_model.dart';
 import 'package:ejemplo1/screens/todo_list_screen.dart';
@@ -58,7 +59,8 @@ class _AddTaskSreenState extends State<AddTaskSreen> {
         DatabaseHelper.instance.updateTask(task);
       }
       widget.updateTaskList();
-      Navigator.pop(context);
+      Navigator.push(
+        context, MaterialPageRoute(builder: (context) => TodoListScreeen()));
     }
   }
 
@@ -66,10 +68,7 @@ class _AddTaskSreenState extends State<AddTaskSreen> {
     DatabaseHelper.instance.deleteTask(widget.task.id);
     widget.updateTaskList();
     Navigator.push(
-      context,
-      MaterialPageRoute(
-      builder: (context) =>
-      TodoListScreeen()));                                        
+        context, MaterialPageRoute(builder: (context) => TodoListScreeen()));
   }
 
   @override
@@ -202,7 +201,23 @@ class _AddTaskSreenState extends State<AddTaskSreen> {
                             color: Theme.of(context).primaryColor,
                             borderRadius: BorderRadius.circular(30)),
                         child: FlatButton(
-                          onPressed: _submit,
+                          onPressed: () {
+                            if (widget.task == null) {
+                              buttonIos(
+                                  context,
+                                  'Puedes darle click a salir para verificarla',
+                                  'Tu tarea A sido registrada',
+                                  'salir',
+                                  _submit);
+                            } else {
+                              buttonIos(
+                                  context,
+                                  'A sido Actualizada',
+                                  'Tu tarea ${widget.task.title}',
+                                  'salir',
+                                  _submit);
+                            }
+                          },
                           child: Text(
                             widget.task == null ? "añadir" : 'Actualizar',
                             style: TextStyle(
@@ -222,23 +237,12 @@ class _AddTaskSreenState extends State<AddTaskSreen> {
                                   color: Theme.of(context).primaryColor,
                                   borderRadius: BorderRadius.circular(30)),
                               child: FlatButton(
-                                onPressed: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) =>
-                                          CupertinoAlertDialog(
-                                            title: Text('Tarea Pendiente'),
-                                            content: Text(
-                                                'Tu tarea: ${widget.task.title}'),
-                                            actions: <Widget>[
-                                              CupertinoDialogAction(
-                                                isDefaultAction: true,
-                                                child: Text('salir'),
-                                                onPressed: _delete,
-                                              )
-                                            ],
-                                  ));
-                                },
+                                onPressed: () => buttonIos(
+                                    context,
+                                    'Tu Tarea: ${widget.task.title}',
+                                    'Tarea Pendiente',
+                                    'Salir',
+                                    _delete),
                                 child: Text(
                                   'Eliminar',
                                   style: TextStyle(

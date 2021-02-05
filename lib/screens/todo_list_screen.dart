@@ -50,7 +50,6 @@ class _TodoListScreeenState extends State<TodoListScreeen> {
                 child: CircularProgressIndicator(),
               );
             }
-
                 final int completedTaskCount = snapshot.data
                 .where((Task task) => task.status == 1)
                 .toList()
