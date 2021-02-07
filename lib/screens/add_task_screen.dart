@@ -6,6 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+int verficator = 0;
+
 class AddTaskSreen extends StatefulWidget {
   final Task task;
   final Function updateTaskList;
@@ -60,7 +62,7 @@ class _AddTaskSreenState extends State<AddTaskSreen> {
       }
       widget.updateTaskList();
       Navigator.push(
-        context, MaterialPageRoute(builder: (context) => TodoListScreeen()));
+          context, MaterialPageRoute(builder: (context) => TodoListScreeen()));
     }
   }
 
@@ -141,7 +143,9 @@ class _AddTaskSreenState extends State<AddTaskSreen> {
                           validator: (input) => input.trim().isEmpty
                               ? "Por favor ingrese una tarea"
                               : null,
-                          onSaved: (input) => _title = input,
+                          onSaved: (input) => {
+                            _title = input,
+                          },
                           initialValue: _title,
                         ),
                       ),
@@ -150,18 +154,18 @@ class _AddTaskSreenState extends State<AddTaskSreen> {
                           vertical: 20,
                         ),
                         child: TextFormField(
-                          readOnly: true,
-                          controller: _dateController,
-                          onTap: _handleDatePicker,
-                          style: TextStyle(fontSize: 18),
-                          decoration: InputDecoration(
-                              labelText: 'Fecha',
-                              labelStyle: TextStyle(fontSize: 18),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10))),
-                          validator: (input) =>
-                              input.trim().isEmpty ? "Ingrese la fecha" : null,
-                        ),
+                            readOnly: true,
+                            controller: _dateController,
+                            onTap: _handleDatePicker,
+                            style: TextStyle(fontSize: 18),
+                            decoration: InputDecoration(
+                                labelText: 'Fecha',
+                                labelStyle: TextStyle(fontSize: 18),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10))),
+                            validator: (input) => (input.trim().isEmpty
+                                ? "Ingrese la fecha"
+                                : null)),
                       ),
                       Padding(
                           padding: const EdgeInsets.symmetric(
@@ -203,12 +207,7 @@ class _AddTaskSreenState extends State<AddTaskSreen> {
                         child: FlatButton(
                           onPressed: () {
                             if (widget.task == null) {
-                              buttonIos(
-                                  context,
-                                  'Puedes darle click a salir para verificarla',
-                                  'Tu tarea A sido registrada',
-                                  'salir',
-                                  _submit);
+                              _submit();
                             } else {
                               buttonIos(
                                   context,
@@ -217,6 +216,7 @@ class _AddTaskSreenState extends State<AddTaskSreen> {
                                   'salir',
                                   _submit);
                             }
+                            print(_title);
                           },
                           child: Text(
                             widget.task == null ? "añadir" : 'Actualizar',

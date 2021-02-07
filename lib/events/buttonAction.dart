@@ -3,6 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:ejemplo1/models/colors.dart';
 
+SpeedDialChild getSpeedBuild (BuildContext _, Icon icons, Color buttonColors,
+        Color fonts, String textLabel, Widget task)
+    {
+      return SpeedDialChild(
+          child: icons,
+          backgroundColor: buttonColors,
+          onTap: () {
+            Navigator.push(
+              _,
+              CupertinoPageRoute(builder: (_) => task),
+            );
+          },
+          label: textLabel,
+          labelStyle: TextStyle(
+              fontWeight: FontWeight.w500, color: fonts, fontSize: 16.0),
+          labelBackgroundColor: buttonColors);
+    }
 
 Widget getButtonsFloating(BuildContext _, Widget addTaks, Widget instruccions) {
   return SpeedDial(
@@ -12,34 +29,8 @@ Widget getButtonsFloating(BuildContext _, Widget addTaks, Widget instruccions) {
     visible: true,
     curve: Curves.bounceIn,
     children: [
-      SpeedDialChild(
-          child: Icon(Icons.add_outlined),
-          backgroundColor: buttonColor,
-          onTap: () {
-            Navigator.push(
-              _,
-              CupertinoPageRoute(builder: (_) => addTaks),
-            );
-          },
-          label: 'Añadir tarea',
-          labelStyle: TextStyle(
-              fontWeight: FontWeight.w500, color: Colors.white, fontSize: 16.0),
-          labelBackgroundColor: buttonColor
-      ),
-      SpeedDialChild(
-          child: Icon(Icons.assignment_turned_in),
-          backgroundColor: buttonColor,
-          onTap: () {
-            Navigator.push(
-              _,
-              CupertinoPageRoute(builder: (_) => instruccions),
-            );
-          },
-          label: 'Instruciones',
-          labelStyle: TextStyle(
-              fontWeight: FontWeight.w500, color: Colors.white, fontSize: 16.0),
-          labelBackgroundColor: buttonColor
-      )
+      getSpeedBuild(_ ,Icon(Icons.add_outlined),buttonColor,bodyColor,'Añadir Tarea',addTaks),
+      getSpeedBuild(_ ,Icon(Icons.assignment_turned_in),buttonColor,bodyColor,'Instruciones',instruccions),
     ],
   );
 }
